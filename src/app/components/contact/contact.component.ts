@@ -100,36 +100,39 @@ ngAfterViewInit(): void {
     };
   }
 
-  async onSubmit(): Promise<void> {
-    if (this.form.invalid) {
-      this.form.markAllAsTouched();
-      return;
-    }
-
-    this.sendState = 'sending';
-    this.errorMessage = '';
-
-    try {
-      await emailjs.send(this.SERVICE_ID, this.TEMPLATE_ID, {
-        from_name: this.form.value.name,
-        from_email: this.form.value.email,
-        subject: this.form.value.subject,
-        message: this.form.value.message
-      });
-
-      this.sendState = 'success';
-      this.form.reset();
-
-      setTimeout(() => {
-        if (this.sendState === 'success') this.sendState = 'idle';
-      }, 5000);
-    } catch (err) {
-      console.error('EmailJS error:', err);
-      this.sendState = 'error';
-      this.errorMessage = 'Une erreur est survenue. Réessaie ou contacte-moi directement par email.';
-    }
+async onSubmit(): Promise<void> {
+  if (this.form.invalid) {
+    this.form.markAllAsTouched();
+    return;
   }
 
+  this.sendState = 'sending';
+  this.errorMessage = '';
+
+  try {
+    await emailjs.send(this.SERVICE_ID, this.TEMPLATE_ID, {
+      name: this.form.value.name,
+      email: this.form.value.email,
+      subject: this.form.value.subject,
+      message: this.form.value.message,
+      time: new Date().toLocaleString('fr-FR', {
+        dateStyle: 'long',
+        timeStyle: 'short'
+      })
+    });
+
+    this.sendState = 'success';
+    this.form.reset();
+
+    setTimeout(() => {
+      if (this.sendState === 'success') this.sendState = 'idle';
+    }, 5000);
+  } catch (err) {
+    console.error('EmailJS error:', err);
+    this.sendState = 'error';
+    this.errorMessage = 'Une erreur est survenue. Réessaie ou contacte-moi directement par email.';
+  }
+}
 
   private initCanvas(): void {
     const rect = this.canvasWrapRef.nativeElement.getBoundingClientRect();
