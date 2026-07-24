@@ -5,7 +5,7 @@ import {
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import emailjs from '@emailjs/browser';
-
+import { environment } from '../../../environments/environment';
 interface Particle {
   x: number; y: number;
   vx: number; vy: number;
@@ -25,9 +25,9 @@ export class ContactComponent implements AfterViewInit, OnDestroy {
   @ViewChild('particleCanvas', { static: true }) canvasRef!: ElementRef<HTMLCanvasElement>;
   @ViewChild('canvasWrap', { static: true }) canvasWrapRef!: ElementRef<HTMLDivElement>;
 
-  private readonly SERVICE_ID = 'service_xxxxx';
-  private readonly TEMPLATE_ID = 'template_xxxxx';
-  private readonly PUBLIC_KEY = 'AbCdEfGhIjKlMn';
+private readonly SERVICE_ID = environment.emailjs.serviceId;
+private readonly TEMPLATE_ID = environment.emailjs.templateId;
+private readonly PUBLIC_KEY = environment.emailjs.publicKey;
 
   form: FormGroup;
   sendState: SendState = 'idle';
@@ -61,18 +61,20 @@ export class ContactComponent implements AfterViewInit, OnDestroy {
     });
   }
 
-  ngAfterViewInit(): void {
-    emailjs.init({ publicKey: this.PUBLIC_KEY });
+ngAfterViewInit(): void {
+  emailjs.init({
+    publicKey: this.PUBLIC_KEY
+  });
 
-    this.ctx = this.canvasRef.nativeElement.getContext('2d')!;
-    this.initCanvas();
-    this.loop();
+  this.ctx = this.canvasRef.nativeElement.getContext('2d')!;
+  this.initCanvas();
+  this.loop();
 
-    this.resizeObserver = new ResizeObserver(() => this.initCanvas());
-    this.resizeObserver.observe(this.canvasWrapRef.nativeElement);
+  this.resizeObserver = new ResizeObserver(() => this.initCanvas());
+  this.resizeObserver.observe(this.canvasWrapRef.nativeElement);
 
-    this.setupRevealAnimations();
-  }
+  this.setupRevealAnimations();
+}
 
   ngOnDestroy(): void {
     cancelAnimationFrame(this.rafId);
