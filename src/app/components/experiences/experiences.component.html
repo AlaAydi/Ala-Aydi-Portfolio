@@ -1,0 +1,50 @@
+<section id="experience" class="experience" #experienceSection>
+  <div class="container">
+
+    <p class="eyebrow reveal">Parcours<span class="dot"></span></p>
+    <h2 class="section-title reveal">Expérience professionnelle</h2>
+    <p class="section-subtitle reveal">Mes stages en développement web, du front au back-end.</p>
+
+    <div class="timeline-wrap" #timelineWrap>
+      <canvas #lineCanvas class="timeline-canvas"></canvas>
+
+      <div
+        class="timeline-item reveal"
+        *ngFor="let exp of experiences; let i = index"
+        #itemEl
+        [style.--exp-color]="exp.color"
+        [style.transition-delay]="(i * 0.12) + 's'">
+
+        <span class="timeline-icon">
+          <svg *ngIf="exp.icon === 'education'" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M22 10 12 5 2 10l10 5 10-5Z"/>
+            <path d="M6 12v5c0 1.5 2.5 3 6 3s6-1.5 6-3v-5"/>
+          </svg>
+          <svg *ngIf="exp.icon === 'web'" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="2" y="3" width="20" height="14" rx="2"/>
+            <line x1="8" y1="21" x2="16" y2="21"/>
+            <line x1="12" y1="17" x2="12" y2="21"/>
+          </svg>
+        </span>
+
+        <div class="timeline-card card">
+          <div class="card-head">
+            <div>
+              <h3 class="role">{{ exp.role }}</h3>
+              <p class="company">{{ exp.company }}</p>
+            </div>
+            <span class="period">{{ exp.period }}</span>
+          </div>
+
+          <p class="description">{{ exp.description }}</p>
+
+          <div class="tags">
+            <span class="tag" 
+            *ngFor="let tag of exp.tags">{{ tag }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>

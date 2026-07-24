@@ -1,0 +1,73 @@
+<section id="projects" class="projects" #projectsSection>
+  <div class="container">
+
+    <p class="eyebrow reveal">Réalisations<span class="dot"></span></p>
+    <h2 class="section-title reveal">Projets récents</h2>
+    <p class="section-subtitle reveal">Une sélection de projets sur lesquels j'ai travaillé, du concept au déploiement.</p>
+
+    <div class="projects-grid">
+      <article
+        class="project-card reveal"
+        *ngFor="let project of projects; let i = index"
+        #cardEl
+        [class.featured]="project.featured"
+        [style.--proj-color]="project.color"
+        [style.transition-delay]="(i * 0.08) + 's'"
+        (mousemove)="onCardMouseMove($event, cardEl)"
+        (mouseleave)="onCardMouseLeave(cardEl)">
+
+        <div class="card-inner">
+
+          <div class="card-image">
+            <img [src]="project.image" [alt]="project.title" loading="lazy" />
+            <div class="image-overlay"></div>
+
+            <div class="card-links">
+                
+              <a
+                *ngIf="project.githubUrl"
+                [href]="project.githubUrl"
+                target="_blank"
+                rel="noopener"
+                class="link-btn"
+                aria-label="Voir le code sur GitHub">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+                  <path d="M12 0a12 12 0 0 0-3.8 23.4c.6.1.8-.3.8-.6v-2.2c-3.3.7-4-1.6-4-1.6-.5-1.4-1.3-1.8-1.3-1.8-1.1-.7 0-.7 0-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.4 1 .1-.8.4-1.3.8-1.6-2.7-.3-5.5-1.3-5.5-5.9 0-1.3.5-2.4 1.2-3.2-.1-.3-.5-1.5.1-3.2 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0c2.3-1.5 3.3-1.2 3.3-1.2.6 1.7.2 2.9.1 3.2.8.8 1.2 1.9 1.2 3.2 0 4.6-2.8 5.6-5.5 5.9.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A12 12 0 0 0 12 0z"/>
+                </svg>
+                </a>
+              <a    
+              
+                *ngIf="project.liveUrl"
+                [href]="project.liveUrl"
+                target="_blank"
+                rel="noopener"
+                class="link-btn"
+                aria-label="Voir le projet en ligne">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+                  <polyline points="15 3 21 3 21 9"/>
+                  <line x1="10" y1="14" x2="21" y2="3"/>
+                </svg>
+              </a>
+            </div>
+
+            <span *ngIf="project.featured" class="featured-badge">Phare</span>
+          </div>
+
+          <div class="card-body">
+            <h3 class="card-title">{{ project.title }}</h3>
+            <p class="card-description">{{ project.description }}</p>
+
+            <div class="card-tags">
+              <span class="tag" *ngFor="let tag of project.tags">{{ tag }}</span>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="card-glow"></div>
+      </article>
+    </div>
+
+  </div>
+</section>

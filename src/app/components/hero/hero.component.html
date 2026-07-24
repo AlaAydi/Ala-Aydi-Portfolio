@@ -1,0 +1,127 @@
+<section id="hero" class="hero" #heroSection>
+  <canvas #threeCanvas class="three-canvas"></canvas>
+
+  <div class="dot-grid"></div>
+
+  <div class="scan-line"></div>
+
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="orb orb-3"></div>
+
+  <div class="floating-code code-1">
+    <span class="code-keyword">const</span> passion = <span class="code-string">"code"</span>;
+  </div>
+  <div class="floating-code code-2">
+    <span class="code-keyword">export</span> <span class="code-keyword">default</span> <span class="code-func">createMagic</span>();
+  </div>
+  <div class="floating-code code-3">
+    &lt;<span class="code-tag">Portfolio</span> <span class="code-attr">mode</span>=<span class="code-string">"premium"</span> /&gt;
+  </div>
+
+  <div class="hero-bg-glow"></div>
+
+  <div class="container hero-grid"
+       #visual
+       (mousemove)="onVisualMouseMove($event)"
+       (mouseleave)="onVisualMouseLeave()">
+
+    <div class="hero-text" [class.revealed]="isRevealed">
+      <span class="ghost-word">CODE</span>
+
+      <p class="eyebrow">
+        <span class="wave">👋</span> Salut<span class="dot"></span>
+      </p>
+
+      <div class="intro-line">
+        <span class="line"></span>
+        <span>I'm <span class="name-highlight">{{ displayedName }}</span><span class="cursor-blink">|</span></span>
+      </div>
+
+      <h1 class="role">
+        Software<br>
+        <span class="grad-text">Développeur</span>
+        <span class="role-accent"></span>
+      </h1>
+
+      <p class="tagline">{{ tagline }}</p>
+
+      <div class="cta-row">
+        <button class="btn btn-primary" id="hero-cta-project" (click)="scrollToContact()">
+          <span class="btn-text">Got a project?</span>
+          <span class="btn-icon">→</span>
+        </button>
+        <a class="btn btn-outline" id="hero-cta-cv" href="assets/alaCv.pdf.pdf" target="_blank" rel="noopener">
+          <span class="btn-text">Mon CV</span>
+          <span class="btn-icon">↗</span>
+        </a>
+      </div>
+
+      <div class="social-row">
+        <a href="https://github.com/" target="_blank" rel="noopener" class="social-link" aria-label="GitHub">
+          <i class="fa-brands fa-github"></i>
+        </a>
+        <a href="https://linkedin.com/" target="_blank" rel="noopener" class="social-link" aria-label="LinkedIn">
+          <i class="fa-brands fa-linkedin-in"></i>
+        </a>
+        <a href="mailto:contact@ala.dev" class="social-link" aria-label="Email">
+          <i class="fa-solid fa-envelope"></i>
+        </a>
+      </div>
+    </div>
+
+    <div class="hero-visual" [class.revealed]="isRevealed">
+      <div class="photo-container"
+           [style.--rx]="tiltX + 'deg'"
+           [style.--ry]="tiltY + 'deg'">
+
+        <div class="glow-ring"></div>
+
+        <div class="photo-frame">
+          <img src="assets/images/ala.png"
+               alt="Portrait de {{ name }}"
+               class="hero-photo"
+               loading="eager" />
+          <div class="photo-overlay"></div>
+        </div>
+
+        <div class="orbit-ring">
+          <div class="orbit-dot"></div>
+        </div>
+
+        <div class="stat-badge stat-badge-1">
+          <span class="stat-icon">🚀</span>
+          <div class="stat-content">
+            <span class="stat-value">{{ animatedProjectCount }}+</span>
+            <span class="stat-label">Projets livrés</span>
+          </div>
+        </div>
+
+        <div class="stat-badge stat-badge-2">
+          <span class="stat-icon">⚡</span>
+          <div class="stat-content">
+            <span class="stat-value">{{ animatedExpYears }}+</span>
+            <span class="stat-label">Ans d'expérience</span>
+          </div>
+        </div>
+
+        <div class="tech-float tech-1">
+          <i class="fa-brands fa-angular"></i>
+        </div>
+        <div class="tech-float tech-2">
+          <i class="fa-brands fa-js"></i>
+        </div>
+        <div class="tech-float tech-3">
+          <i class="fa-brands fa-node-js"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="scroll-indicator" [class.revealed]="isRevealed">
+    <div class="mouse">
+      <div class="wheel"></div>
+    </div>
+    <span>Scroll</span>
+  </div>
+</section>

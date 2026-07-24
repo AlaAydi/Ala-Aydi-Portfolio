@@ -1,0 +1,41 @@
+<header
+  [class.scrolled]="isScrolled"
+  (mousemove)="onHeaderMouseMove($event)"
+  (mouseleave)="onHeaderMouseLeave()"
+  [style.--tiltX.deg]="tiltX"
+  [style.--tiltY.deg]="tiltY">
+
+  <div class="container nav">
+
+    <div class="logo-cube" (click)="scrollToSection('hero')" tabindex="0" aria-label="Retour en haut">
+      <span class="face front">&lt;/&gt;</span>
+      <span class="face top"></span>
+      <span class="face side"></span>
+      <span class="shadow"></span>
+    </div>
+
+    <nav class="dock">
+      <a *ngFor="let item of navItems"
+         class="key"
+         (click)="scrollToSection(item.targetId)"
+         [class.active]="activeSection === item.targetId">
+        <span class="key-label">{{ item.label }}</span>
+      </a>
+    </nav>
+
+    <button class="hamburger" (click)="toggleMenu()" aria-label="Menu">
+      <span [class.open]="isMenuOpen"></span>
+      <span [class.open]="isMenuOpen"></span>
+      <span [class.open]="isMenuOpen"></span>
+    </button>
+  </div>
+
+  <div class="mobile-menu" *ngIf="isMenuOpen">
+    <a *ngFor="let item of navItems"
+       class="key mobile"
+       (click)="scrollToSection(item.targetId)"
+       [class.active]="activeSection === item.targetId">
+      {{ item.label }}
+    </a>
+  </div>
+</header>

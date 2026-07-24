@@ -1,0 +1,31 @@
+<section id="about" class="about" #aboutSection>
+  <div class="container about-grid">
+
+    <div
+      class="about-visual"
+      #visual
+      (mousemove)="onVisualMouseMove($event)"
+      (mouseleave)="onVisualMouseLeave()">
+      <canvas #threeCanvas class="three-canvas"></canvas>
+    </div>
+
+    <div class="about-text">
+      <p class="eyebrow reveal">À propos<span class="dot"></span></p>
+      <h2 class="section-title align-left reveal">Qui suis-je</h2>
+
+      <p class="bio reveal">{{ bio }}</p>
+
+      <div class="tags reveal">
+        <span class="tag" *ngFor="let tag of tags">{{ tag }}</span>
+      </div>
+
+      <div class="stats-grid reveal">
+        <div class="stat-card card" *ngFor="let stat of stats">
+          <span class="stat-number">{{ stat.current }}{{ stat.suffix }}</span>
+          <span class="stat-label">{{ stat.label }}</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
