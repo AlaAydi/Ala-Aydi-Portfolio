@@ -1,0 +1,36 @@
+<div class="preloader-overlay" [class.fade-out]="isFadingOut">
+  <div class="preloader-content">
+    <div class="logo-box">
+      <span class="logo-glow">ALA</span>
+      <span class="logo-accent">.dev</span>
+    </div>
+
+    <div class="terminal-loader">
+      <div class="terminal-header">
+        <span class="dot red"></span>
+        <span class="dot yellow"></span>
+        <span class="dot green"></span>
+        <span class="title">ala-controller.ts</span>
+      </div>
+      <div class="terminal-body">
+        <div class="step-line" *ngFor="let step of steps; let i = index" [class.active]="i <= currentStepIndex">
+          <span class="prompt">&gt;</span> {{ step }}
+        </div>
+      </div>
+    </div>
+
+    <div class="progress-section">
+      <div class="progress-bar-track">
+        <div class="progress-bar-fill" [style.width.%]="progress"></div>
+      </div>
+      <div class="progress-info">
+        <span class="status">Loading experience...</span>
+        <span class="percentage">{{ progress | number:'1.0-0' }}%</span>
+      </div>
+    </div>
+
+    <button class="skip-btn" (click)="skipIntro()">
+      Skip Intro <span class="arrow">→</span>
+    </button>
+  </div>
+</div>
