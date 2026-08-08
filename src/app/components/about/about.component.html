@@ -1,31 +1,62 @@
 <section id="about" class="about" #aboutSection>
-  <div class="container about-grid">
+  <div class="container">
 
-    <div
-      class="about-visual"
-      #visual
-      (mousemove)="onVisualMouseMove($event)"
-      (mouseleave)="onVisualMouseLeave()">
-      <canvas #threeCanvas class="three-canvas"></canvas>
+    <div class="section-header">
+      <span class="section-tag">// about.ts</span>
+      <h2 class="section-title">About <span class="gradient-text">Me</span></h2>
+      <p class="section-subtitle">Passionate developer crafting fast, elegant and memorable digital experiences.</p>
     </div>
 
-    <div class="about-text">
-      <p class="eyebrow reveal">À propos<span class="dot"></span></p>
-      <h2 class="section-title align-left reveal">Qui suis-je</h2>
+    <div class="about-grid">
 
-      <p class="bio reveal">{{ bio }}</p>
-
-      <div class="tags reveal">
-        <span class="tag" *ngFor="let tag of tags">{{ tag }}</span>
+      <!-- Left: 3D Canvas -->
+      <div class="about-visual" #visual (mousemove)="onVisualMouseMove($event)" (mouseleave)="onVisualMouseLeave()">
+        <canvas #threeCanvas class="three-canvas"></canvas>
+        <div class="visual-glow"></div>
       </div>
 
-      <div class="stats-grid reveal">
-        <div class="stat-card card" *ngFor="let stat of stats">
-          <span class="stat-number">{{ stat.current }}{{ stat.suffix }}</span>
-          <span class="stat-label">{{ stat.label }}</span>
+      <!-- Right: Info -->
+      <div class="about-text">
+        <p class="bio reveal">{{ bio }}</p>
+
+        <div class="tags reveal">
+          <span class="tag" *ngFor="let tag of tags">{{ tag }}</span>
+        </div>
+
+        <!-- Bento Stats Grid -->
+        <div class="stats-grid reveal">
+          <div class="stat-card glass-card" *ngFor="let stat of stats">
+            <span class="stat-number">{{ stat.current }}{{ stat.suffix }}</span>
+            <span class="stat-label">{{ stat.label }}</span>
+          </div>
+        </div>
+
+        <!-- Info cards -->
+        <div class="info-cards reveal">
+          <div class="info-card glass-card">
+            <span class="info-icon">📍</span>
+            <div>
+              <span class="info-title">Location</span>
+              <span class="info-value">Tunisia, TN</span>
+            </div>
+          </div>
+          <div class="info-card glass-card">
+            <span class="info-icon">🎓</span>
+            <div>
+              <span class="info-title">Education</span>
+              <span class="info-value">Software Engineering</span>
+            </div>
+          </div>
+          <div class="info-card glass-card">
+            <span class="info-icon">🌐</span>
+            <div>
+              <span class="info-title">Languages</span>
+              <span class="info-value">Arabic, French, English</span>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
 
+    </div>
   </div>
 </section>
