@@ -4,6 +4,18 @@ $glass-bg: rgba(255, 255, 255, 0.04);
 $glass-border: rgba(255, 255, 255, 0.08);
 $glass-blur: 20px;
 
+/* ── Hero noise / dot grid ── */
+.hero-noise {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0.08;
+  background-image: radial-gradient(circle, rgba(255,255,255,0.7) 1px, transparent 1px);
+  background-size: 36px 36px;
+  animation: dotGridDrift 20s linear infinite;
+}
+
 .hero {
   position: relative;
   min-height: 100vh;
@@ -201,13 +213,130 @@ $glass-blur: 20px;
     transform: translateY(0);
   }
 
-  &.revealed .ghost-word    { transition-delay: 0.05s; }
-  &.revealed .eyebrow       { transition-delay: 0.15s; }
-  &.revealed .intro-line    { transition-delay: 0.3s; }
-  &.revealed .role           { transition-delay: 0.45s; }
-  &.revealed .tagline        { transition-delay: 0.6s; }
-  &.revealed .cta-row        { transition-delay: 0.75s; }
-  &.revealed .social-row     { transition-delay: 0.9s; }
+  &.revealed .available-badge { transition-delay: 0.05s; }
+  &.revealed .intro-line     { transition-delay: 0.2s; }
+  &.revealed .hero-title     { transition-delay: 0.35s; }
+  &.revealed .tagline        { transition-delay: 0.5s; }
+  &.revealed .cta-row        { transition-delay: 0.65s; }
+  &.revealed .social-row     { transition-delay: 0.8s; }
+
+  /* Available for work badge */
+  .available-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    padding: 0.4rem 1rem;
+    border-radius: var(--radius-full);
+    background: rgba(52, 211, 153, 0.08);
+    border: 1px solid rgba(52, 211, 153, 0.2);
+    margin-bottom: 1.2rem;
+    width: fit-content;
+
+    .pulse-ring {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: transparent;
+      border: 2px solid #34d399;
+      animation: pulseRing 2s ease-out infinite;
+    }
+
+    .pulse-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #34d399;
+      box-shadow: 0 0 10px rgba(52, 211, 153, 0.6);
+      position: relative;
+    }
+
+    .badge-text {
+      font-size: 0.82rem;
+      font-weight: 500;
+      font-family: var(--font-mono);
+      color: #34d399;
+      letter-spacing: 0.01em;
+    }
+  }
+
+  @keyframes pulseRing {
+    0% { transform: scale(0.8); opacity: 1; }
+    100% { transform: scale(2.2); opacity: 0; }
+  }
+
+  /* Intro line */
+  .intro-line {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    margin-bottom: 0.6rem;
+    color: var(--text-secondary);
+    font-size: 1.05rem;
+
+    .wave {
+      display: inline-block;
+      animation: wave 2.5s ease-in-out infinite;
+      transform-origin: 70% 70%;
+    }
+
+    .name-highlight {
+      color: var(--text-primary);
+      font-weight: 700;
+      font-family: var(--font-heading);
+    }
+
+    .cursor-blink {
+      color: #22d3ee;
+      font-weight: 300;
+      animation: blink 1s step-end infinite;
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
+    }
+  }
+
+  @keyframes wave {
+    0%, 60%, 100% { transform: rotate(0); }
+    10% { transform: rotate(14deg); }
+    20% { transform: rotate(-8deg); }
+    30% { transform: rotate(14deg); }
+    40% { transform: rotate(-4deg); }
+    50% { transform: rotate(10deg); }
+  }
+
+  /* Hero main title */
+  .hero-title {
+    font-family: var(--font-heading);
+    font-size: clamp(2.5rem, 5.5vw, 4rem);
+    font-weight: 700;
+    line-height: 1.08;
+    margin-bottom: 1.2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+
+    .title-static {
+      color: var(--text-primary);
+    }
+
+    .title-animated {
+      background: linear-gradient(135deg, #22d3ee 0%, #34d399 50%, #a855f7 100%);
+      background-size: 300% 300%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: gradientShift 4s ease-in-out infinite;
+    }
+  }
+
+  @keyframes gradientShift {
+    0%   { background-position: 0% 50%; }
+    50%  { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
 
   .ghost-word {
     position: absolute;

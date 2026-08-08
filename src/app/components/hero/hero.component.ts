@@ -27,7 +27,11 @@ export class HeroComponent implements OnInit, AfterViewInit, OnDestroy {
   displayedName = '';
   tagline = "Je conçois et développe des expériences web rapides, élégantes et sur-mesure — du concept à la mise en ligne.";
 
-  // Animated counters
+  // Rotating roles
+  private roles = ['Développeur', 'Angular Specialist', 'AI Integrator', 'Full Stack Dev'];
+  private roleIndex = 0;
+  currentRole = this.roles[0];
+  private roleInterval?: ReturnType<typeof setInterval>;
   animatedProjectCount = 0;
   animatedExpYears = 0;
   private targetProjectCount = 20;
@@ -99,6 +103,7 @@ export class HeroComponent implements OnInit, AfterViewInit, OnDestroy {
     setTimeout(() => {
       this.isRevealed = true;
       this.animateCounters();
+      this.startRoleRotation();
     }, 200);
 
     // Global mouse listener for subtle parallax
@@ -114,6 +119,7 @@ export class HeroComponent implements OnInit, AfterViewInit, OnDestroy {
     window.removeEventListener('mousemove', this.onGlobalMouseMove);
     if (this.typewriterTimeout) clearTimeout(this.typewriterTimeout);
     if (this.counterInterval) clearInterval(this.counterInterval);
+    if (this.roleInterval) clearInterval(this.roleInterval);
     this.disposeScene();
     this.renderer?.dispose();
   }
@@ -124,6 +130,10 @@ export class HeroComponent implements OnInit, AfterViewInit, OnDestroy {
 
   scrollToContact(): void {
     document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  scrollToSection(id: string): void {
+    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
 
   onVisualMouseMove(event: MouseEvent): void {
@@ -173,16 +183,21 @@ export class HeroComponent implements OnInit, AfterViewInit, OnDestroy {
     this.counterInterval = setInterval(() => {
       currentStep++;
       const progress = this.easeOutQuart(currentStep / steps);
-
       this.animatedProjectCount = Math.round(progress * this.targetProjectCount);
       this.animatedExpYears = Math.round(progress * this.targetExpYears);
-
       if (currentStep >= steps) {
         this.animatedProjectCount = this.targetProjectCount;
         this.animatedExpYears = this.targetExpYears;
         if (this.counterInterval) clearInterval(this.counterInterval);
       }
     }, stepDuration);
+  }
+
+  private startRoleRotation(): void {
+    this.roleInterval = setInterval(() => {
+      this.roleIndex = (this.roleIndex + 1) % this.roles.length;
+      this.currentRole = this.roles[this.roleIndex];
+    }, 3000);
   }
 
   private easeOutQuart(t: number): number {
