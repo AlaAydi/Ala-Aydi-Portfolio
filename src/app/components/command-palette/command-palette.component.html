@@ -1,0 +1,57 @@
+<!-- Trigger Button -->
+<button class="palette-trigger" (click)="togglePalette()" title="Command Palette (Ctrl+K)">
+  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+    <circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+  </svg>
+  <span>Search</span>
+  <kbd>Ctrl K</kbd>
+</button>
+
+<!-- Modal Backdrop -->
+<div class="palette-backdrop" *ngIf="isOpen" (click)="closePalette()"></div>
+
+<!-- Palette Modal -->
+<div class="palette-modal" [class.open]="isOpen">
+  <div class="palette-search">
+    <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+    </svg>
+    <input
+      type="text"
+      class="search-input"
+      [(ngModel)]="searchQuery"
+      (ngModelChange)="selectedIndex = 0"
+      placeholder="Search commands, navigate sections..."
+      autofocus
+      spellcheck="false"
+    />
+    <kbd class="esc-key">ESC</kbd>
+  </div>
+
+  <div class="palette-results">
+    <div
+      class="result-item"
+      *ngFor="let item of filteredItems; let i = index"
+      [class.selected]="i === selectedIndex"
+      (mouseenter)="selectItem(i)"
+      (click)="executeSelected()"
+    >
+      <span class="item-icon">{{ item.icon }}</span>
+      <div class="item-info">
+        <span class="item-label">{{ item.label }}</span>
+        <span class="item-desc">{{ item.description }}</span>
+      </div>
+      <span class="item-enter" *ngIf="i === selectedIndex">↵</span>
+    </div>
+
+    <div class="no-results" *ngIf="filteredItems.length === 0">
+      No results for "{{ searchQuery }}"
+    </div>
+  </div>
+
+  <div class="palette-footer">
+    <span><kbd>↑↓</kbd> Navigate</span>
+    <span><kbd>↵</kbd> Execute</span>
+    <span><kbd>Esc</kbd> Close</span>
+  </div>
+</div>
