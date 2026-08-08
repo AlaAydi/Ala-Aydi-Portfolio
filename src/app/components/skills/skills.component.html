@@ -1,23 +1,55 @@
 <section id="skills" class="skills" #skillsSection>
   <div class="container">
 
-    <p class="eyebrow reveal">Compétences<span class="dot"></span></p>
-    <h2 class="section-title reveal">Ce que je maîtrise</h2>
-
-    <div class="legend reveal">
-      <span class="legend-item" *ngFor="let cat of categories" [style.--cat-color]="cat.color">
-        <span class="legend-dot"></span>{{ cat.name }}
-      </span>
+    <div class="section-header">
+      <span class="section-tag">// skills.map()</span>
+      <h2 class="section-title">Tech <span class="gradient-text">Stack</span></h2>
+      <p class="section-subtitle">Technologies I work with to build scalable, modern applications.</p>
     </div>
 
+    <!-- Filter tabs -->
+    <div class="filter-tabs reveal">
+      <button
+        class="filter-tab"
+        [class.active]="activeFilter === 'all'"
+        (click)="setFilter('all')"
+      >All</button>
+      <button
+        class="filter-tab"
+        *ngFor="let cat of categories"
+        [class.active]="activeFilter === cat.name"
+        [style.--cat-color]="cat.color"
+        (click)="setFilter(cat.name)"
+      >{{ cat.name }}</button>
+    </div>
+
+    <!-- Skills Categories Grid -->
+    <div class="categories-grid reveal">
+      <div
+        class="category-card glass-card"
+        *ngFor="let cat of filteredCategories"
+        [style.--cat-color]="cat.color"
+      >
+        <div class="category-header">
+          <span class="category-icon">{{ cat.icon }}</span>
+          <h3 class="category-name">{{ cat.name }}</h3>
+        </div>
+        <div class="skills-chips">
+          <span class="skill-chip" *ngFor="let skill of cat.skills">
+            <span class="chip-dot"></span>
+            {{ skill }}
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3D Skills Graph (hidden on mobile, shown above) -->
     <div
       class="skills-visual reveal"
       #visual
       (mousemove)="onVisualMouseMove($event)"
       (mouseleave)="onVisualMouseLeave()">
-
       <canvas #threeCanvas class="three-canvas"></canvas>
-
       <span
         class="node-label"
         *ngFor="let skill of flatSkills"
@@ -25,17 +57,6 @@
         [style.--node-color]="skill.color">
         {{ skill.label }}
       </span>
-    </div>
-
-    <div class="categories-grid reveal">
-      <div class="category-card card" *ngFor="let cat of categories" [style.--cat-color]="cat.color">
-        <h3 class="category-name">
-          <span class="category-dot"></span>{{ cat.name }}
-        </h3>
-        <div class="tags">
-          <span class="tag" *ngFor="let skill of cat.skills">{{ skill }}</span>
-        </div>
-      </div>
     </div>
 
   </div>

@@ -8,6 +8,7 @@ import * as THREE from 'three';
 interface SkillCategory {
   name: string;
   color: string;
+  icon: string;
   skills: string[];
 }
 
@@ -34,14 +35,27 @@ export class SkillsComponent implements AfterViewInit, OnDestroy {
   @ViewChildren('label') labelRefs!: QueryList<ElementRef<HTMLSpanElement>>;
 
   categories: SkillCategory[] = [
-    { name: 'Langages', color: '#6366f1', skills: ['Python', 'Java', 'JavaScript', 'TypeScript'] },
-    { name: 'Frameworks', color: '#a855f7', skills: ['Angular', 'Spring Boot', 'JEE', 'Bootstrap', 'Django'] },
-    { name: 'SGBD', color: '#22d3ee', skills: ['MySQL', 'MongoDB'] },
-    { name: 'Outils', color: '#f472b6', skills: ['Git', 'GitHub', 'Docker', 'Postman', 'Swagger', 'SonarQube'] }
+    { name: 'Frontend', color: '#22d3ee', icon: '🎨', skills: ['Angular', 'TypeScript', 'HTML5', 'SCSS', 'RxJS', 'Three.js'] },
+    { name: 'Backend', color: '#a855f7', icon: '⚙️', skills: ['Node.js', 'NestJS', 'Express', 'REST API', 'GraphQL', 'JWT'] },
+    { name: 'Mobile', color: '#f59e0b', icon: '📱', skills: ['Flutter', 'Dart', 'Cross-Platform'] },
+    { name: 'Databases', color: '#34d399', icon: '🗄️', skills: ['MongoDB', 'PostgreSQL', 'MySQL', 'Mongoose', 'Prisma'] },
+    { name: 'DevOps', color: '#6366f1', icon: '🚀', skills: ['Git', 'GitHub', 'Docker', 'Vercel', 'Postman', 'Figma'] },
+    { name: 'AI/Cloud', color: '#f472b6', icon: '🤖', skills: ['Python', 'Llama 3.3', 'OpenAI API', 'Langchain', 'REST AI'] }
   ];
 
   flatSkills: { label: string; color: string }[] =
     this.categories.flatMap(cat => cat.skills.map(skill => ({ label: skill, color: cat.color })));
+
+  activeFilter = 'all';
+
+  get filteredCategories(): SkillCategory[] {
+    if (this.activeFilter === 'all') return this.categories;
+    return this.categories.filter(c => c.name === this.activeFilter);
+  }
+
+  setFilter(filter: string): void {
+    this.activeFilter = filter;
+  }
 
   private nodes: SkillNode[] = [];
   private labelEls: HTMLSpanElement[] = [];
