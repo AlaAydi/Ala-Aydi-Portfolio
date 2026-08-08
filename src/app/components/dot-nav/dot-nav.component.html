@@ -1,0 +1,16 @@
+<nav class="dot-nav" aria-label="Section navigation">
+  <div class="dot-track">
+    <button
+      *ngFor="let section of sections"
+      class="dot-item"
+      [class.active]="activeSection === section.id"
+      (click)="scrollTo(section.id)"
+      (mouseenter)="setHovered(section.id)"
+      (mouseleave)="setHovered(null)"
+      [attr.aria-label]="'Navigate to ' + section.label"
+    >
+      <span class="dot-bullet"></span>
+      <span class="dot-tooltip">{{ section.label }}</span>
+    </button>
+  </div>
+</nav>
